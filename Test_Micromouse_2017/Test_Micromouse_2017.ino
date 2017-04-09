@@ -54,7 +54,7 @@ unsigned long initTime;
 unsigned long finalTime;
 unsigned long dt;
 
-double v = 1;
+double v = 0.0255;
 double w = 0;
 
 double x_g = 0;
