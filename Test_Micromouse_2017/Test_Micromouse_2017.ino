@@ -4,7 +4,6 @@
 AF_DCMotor RightMotor(1);
 AF_DCMotor LeftMotor(3);
 
-
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(53, 52, 50, 51, 48, 49);
 
@@ -110,7 +109,7 @@ void setup() {
   //lcd.print(F("  ..Running..  "));
   lcd.clear();
   myPID.SetMode(AUTOMATIC);
-  myPID.SetOutputLimits(-5, 5);
+  myPID.SetOutputLimits(-2, 2);
 
 }
 
