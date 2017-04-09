@@ -1,4 +1,4 @@
-int page = 2;
+int page = 1;
 int lcdInterval = 5;
 static unsigned long lastPage = 0;
 
@@ -6,7 +6,7 @@ void updateDisplay() {
 
   static unsigned long lastUpdate = millis();
   unsigned long currentTime;
-
+ 
   currentTime = millis();
 
   if (currentTime - lastPage > 1000 * lcdInterval) {
@@ -100,11 +100,11 @@ void pTwo() {
 void pThree() {
   lcd.setCursor(0, 0);
   lcd.print(F("vel_r: "));
-  lcd.print(vel_r_new);
+  lcd.print(vel_r_new, 2);
 
   lcd.setCursor(0, 1);
   lcd.print(F("vel_l: "));
-  lcd.print(vel_l_new);
+  lcd.print(vel_l_new, 2);
 
 }
 

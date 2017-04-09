@@ -5,7 +5,8 @@ double vel_rl_min = 0;
 double vel_r_d = 0;
 double vel_l_d = 0;
 //double max_vel = 0.0869;
-double max_vel = 0.0668;
+//double max_vel = 0.0668;
+double max_vel = 0.7639;
 
 void ensure_w(double v, double w) {
 

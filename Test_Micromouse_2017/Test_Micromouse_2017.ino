@@ -60,21 +60,21 @@ double w = 0;
 double x_g = 0;
 double y_g = 0;
 
-double goal_x[] = {0.4, 0, 0.4, 1};
-double goal_y[] = {0.5, 0.5, 0.1, 0.6};
+double goal_x[] = {0.4, 0.4, 0, 0};
+double goal_y[] = {0, 0.4, 0.4, 0};
 
-double d_stop = 0.05;
+double d_stop = 0.01;
 
 
 //PID
 const double Kp = 5;
-const double Ki = 0;
+const double Ki = 0.01;
 const double Kd = 0;
 double u_x = 0;
 double u_y = 0;
 double theta_g = 0;
 
-PID myPID(&theta, &w, &theta_g, Kp, Ki, Kd, REVERSE);
+PID myPID(&theta_new, &w, &theta_g, Kp, Ki, Kd, REVERSE);
 
 void setup() {
 
@@ -118,21 +118,28 @@ void loop() {
   //initTime = millis();
   update_odometry();
   GoToGoal();
-
   set_speeds(v, w);
 
-
-  if (sqrt((x_g - x_new) * (x_g - x_new) + (x_g - x_new) * (x_g - x_new)) <= d_stop) {
+  if (sqrt((x_g - x_new) * (x_g - x_new) + (y_g - y_new) * (y_g - y_new)) <= d_stop) {
+    RightMotor.run(BACKWARD);
+    LeftMotor.run(BACKWARD);
+    delay(10);
     RightMotor.run(RELEASE);
     LeftMotor.run(RELEASE);
     i++;
     delay(10);
-    if (i > 3) {
+    if (i >= 4) {
       myPID.SetMode(MANUAL);
       RightMotor.run(RELEASE);
       LeftMotor.run(RELEASE);
       v = 0;
       w = 0;
+      //      lcd.clear();
+      //      lcd.setCursor(0, 0);
+      //      lcd.print(F(" ..MicroMouse.. "));
+      //      lcd.setCursor(0, 1);
+      //      lcd.print(F("   ...Done...   "));
+
       while (1) {
       }
     }

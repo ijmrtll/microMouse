@@ -3,9 +3,9 @@ void GoToGoal() {
   x_g = goal_x[i];
   y_g = goal_y[i];
   //distance between goal and robot in x-direction
-  u_x = x_g - x;
+  u_x = x_g - x_new;
   //distance between goal and robot in y-direction
-  u_y = y_g - y;
+  u_y = y_g - y_new;
   //angle from robot to goal. Hint: use ATAN2, u_x, u_y here.
   theta_g = atan2(u_y, u_x);
 
