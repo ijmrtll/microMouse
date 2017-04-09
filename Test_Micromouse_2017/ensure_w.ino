@@ -1,11 +1,10 @@
-double w_max_v0 = 1.3365;
-double v_max_w0 = 0.0505;
+double w_max_v0 = 5;
+double v_max_w0 = 1;
 double vel_rl_max = 0;
 double vel_rl_min = 0;
 double vel_r_d = 0;
 double vel_l_d = 0;
-//double max_vel = 0.0869;
-double max_vel = 0.0668;
+double max_vel = 5;
 
 void ensure_w(double v, double w) {
 

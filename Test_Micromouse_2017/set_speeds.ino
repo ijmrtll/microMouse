@@ -10,11 +10,11 @@ void set_speeds(double v , double w) {
   vel_r_new = abs(vel_r);
   vel_l_new = abs(vel_l);
 
-  vel_r_new = map(vel_r_new, 0, max_vel, 120, 255);
-  vel_l_new = map(vel_l_new, 0, max_vel, 130, 255);
+  vel_r_new = map(vel_r_new, 0, 5, 200, 255);
+  vel_l_new = map(vel_l_new, 0, 5, 200, 255);
 
-  constrain(vel_r_new, 120, 255);
-  constrain(vel_l_new, 120, 255);
+  constrain(vel_r_new, 200, 255);
+  constrain(vel_l_new, 200, 255);
 
   RightMotor.setSpeed(vel_r_new);
   LeftMotor.setSpeed(vel_l_new);
