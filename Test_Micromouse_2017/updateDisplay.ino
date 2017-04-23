@@ -6,12 +6,12 @@ void updateDisplay() {
 
   static unsigned long lastUpdate = millis();
   unsigned long currentTime;
- 
+
   currentTime = millis();
 
   if (currentTime - lastPage > 1000 * lcdInterval) {
     lastPage = currentTime;
-    //page++;
+    page++;
   }
 
   // check time since last update
@@ -80,7 +80,7 @@ void pTwo() {
   lcd.setCursor(0, 0);
   lcd.print(F("Aa:"));
   lcd.print(theta_new, 2);
-  
+
   lcd.setCursor(8, 0);
   lcd.print(F("Ag:"));
   lcd.print(theta_g, 2);
