@@ -1,5 +1,6 @@
-int page =2;
+int page = 1;
 int lcdInterval = 5;
+int updateInterval = 200;
 static unsigned long lastPage = 0;
 
 void updateDisplay() {
@@ -11,23 +12,24 @@ void updateDisplay() {
 
   if (currentTime - lastPage > 1000 * lcdInterval) {
     lastPage = currentTime;
-    //page++;
+    page++;
   }
 
   // check time since last update
-  if (lastUpdate > currentTime)   // check for time wrap around
+  if (lastUpdate > currentTime) {  // check for time wrap around
     lastUpdate = currentTime;
+  }
 
-  if (currentTime > lastUpdate + 100) {
+  if (currentTime > lastUpdate + updateInterval) {
     lastUpdate = currentTime;
     lcd.clear();
     lcdPage(page);
-    if (page > 4) {
+    if (page > 2) {
       page = 1;
     }
   }
 }
-
+                      
 
 void lcdPage(int page) {
   switch (page) {
@@ -72,7 +74,6 @@ void pOne() {
   lcd.setCursor(8, 1);
   lcd.print(F("yg:"));
   lcd.print(y_g, 2);
-
 }
 
 void pTwo() {
@@ -93,32 +94,32 @@ void pTwo() {
   lcd.setCursor(8, 1);
   lcd.print(F("uy:"));
   lcd.print(u_y, 2);
-
-
 }
 
 void pThree() {
-  lcd.setCursor(0, 0);
-  lcd.print(F("vel_r: "));
-  lcd.print(vel_r_new, 2);
-
-  lcd.setCursor(0, 1);
-  lcd.print(F("vel_l: "));
-  lcd.print(vel_l_new, 2);
 
 }
 
 void pFour() {
-  lcd.setCursor(0, 0);
-  lcd.print(F("v: "));
-  lcd.print(v);
-
-  lcd.setCursor(0, 1);
-  lcd.print(F("w: "));
-  lcd.print(w);
-
 }
 
 void pFive() {
+}
 
+void createLCDChars() {
+  int lvl = 0;
+  byte arry[8];
+  for (int a = 7; a >= 0; a--)
+  {
+    for (int b = 0; b <= 7; b++)
+    {
+      if (b >= lvl)
+        arry[b] = B11111;       // solid
+      else
+        //arry[b] = B00000;     // blank row
+        arry[b] = B10001;       // hollow but with sides
+    }
+    lcd.createChar(a, arry);
+    lvl++;
+  }
 }

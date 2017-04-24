@@ -30,19 +30,19 @@ LiquidCrystal lcd(53, 52, 50, 51, 48, 49);
 #define frontSensorPin A8
 #define maxDistanceFrontSensor 100 //cm
 MovingAverage<int, 3> frontSensorAverage(maxDistanceFrontSensor);
-int frontSensorDistance;
+float frontSensorDistance;
 
 //Right IR Sensor
 #define rightSensorPin A9
 #define maxDistanceRightSensor 100 //cm
 MovingAverage<int, 3> rightSensorAverage(maxDistanceFrontSensor);
-int rightSensorDistance;
+float rightSensorDistance;
 
 //Left IR Sensor
 #define leftSensorPin A10
 #define maxDistanceLeftSensor 100 //cm
 MovingAverage<int, 3> leftSensorAverage(maxDistanceFrontSensor);
-int leftSensorDistance;
+float leftSensorDistance;
 
 /*End sensors config and moving average config
   ===========================================
@@ -90,32 +90,32 @@ double vel_r = 0;
 double vel_l = 0;
 
 
-//idk
-unsigned long initTime = 0;
-unsigned long finalTime = 0;
-unsigned long dt = 0;
+////idk
+//unsigned long initTime = 0;
+//unsigned long finalTime = 0;
+//unsigned long dt = 0;
 
-double v = 0.025;
+double v = 0.1;
 double w = 0;
 
-double x_g = 0.025;
+double x_g = 0;
 double y_g = 0;
 
-double goal_x[] = {0.4, 0, 0, 0};
+double goal_x[] = {0.1, 0.2, 0.3, 0.4};
 double goal_y[] = {0, 0, 0, 0};
 
 double d_stop = 0.01;
 
 
 //PID
-const double Kp = 0.5;
-const double Ki = 0.01;
+const double Kp = 10;
+const double Ki = 0;
 const double Kd = 0;
 double u_x = 0;
 double u_y = 0;
 double theta_g = 0;
 
-PID myPID(&theta_new, &w, &theta_g, Kp, Ki, Kd, REVERSE);
+PID myPID(&theta_new, &w, &theta_g, Kp, Ki, Kd, DIRECT);
 
 void setup() {
 
@@ -147,29 +147,29 @@ void setup() {
   //lcd.print(F("  ..Running..  "));
   lcd.clear();
   myPID.SetMode(AUTOMATIC);
-  myPID.SetOutputLimits(-5, 5);
-  pinMode(41, INPUT_PULLUP);
+  myPID.SetOutputLimits(-7, 7);
+  //  pinMode(41, INPUT_PULLUP);
 }
 
 int i = 0;
 void loop() {
   //initTime = millis();
-//  while (1) {
-//    if (digitalRead(41) == LOW) {
-//      RightMotor.setSpeed(50);
-//      LeftMotor.setSpeed(50);
-//      RightMotor.run(BACKWARD);
-//      LeftMotor.run(BACKWARD);
-//    } else {
-//      RightMotor.run(RELEASE);
-//      LeftMotor.run(RELEASE);
-//    }
-//
-//    update_odometry();
-//    updateDisplay();
-//    delay(10);
-//  }
-  
+  //  while (1) {
+  //    if (digitalRead(41) == LOW) {
+  //      RightMotor.setSpeed(50);
+  //      LeftMotor.setSpeed(50);
+  //      RightMotor.run(BACKWARD);
+  //      LeftMotor.run(BACKWARD);
+  //    } else {
+  //      RightMotor.run(RELEASE);
+  //      LeftMotor.run(RELEASE);
+  //    }
+  //
+  //    update_odometry();
+  //    updateDisplay();
+  //    delay(10);
+  //  }
+
   update_odometry();
   GoToGoal();
   set_speeds(v, w);
@@ -201,6 +201,5 @@ void loop() {
   }
 
   updateDisplay();
-  delay(10);
   //finalTime = millis();
 }
