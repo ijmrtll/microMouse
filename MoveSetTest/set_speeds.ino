@@ -7,10 +7,10 @@ boolean flagR = true;
 boolean flagL = true;
 
 //speed Limits of the wheels
-float pdiff = 1.1;
+float pdiff = 1.05;
 
 int minDigVell = 20;
-int maxDigVell = 60;
+int maxDigVell = 100;
 
 int minDigVelr = 20;
 int maxDigVelr = pdiff*maxDigVell;
@@ -42,14 +42,13 @@ void set_speeds(double v , double w) {
   }
 
   //Set the direction and move the motors or apply a break if vel = 0
-  int epsilon = 0.1;
-  if (vel_r < 0 - epsilon) {
+  if (vel_r < 0) {
     RightMotor.run(BACKWARD);
     flagR = true;
-  } else if (vel_r > 0 + epsilon) {
+  } else if (vel_r > 0) {
     RightMotor.run(FORWARD);
     flagR = true;
-  } else{
+  } else {
     if (vel_r_prev && flagR) {
       RightMotor.run(BACKWARD);
       delay(10);
@@ -63,13 +62,13 @@ void set_speeds(double v , double w) {
     }
   }
 
-  if (vel_l < 0 - epsilon) {
+  if (vel_l < 0) {
     LeftMotor.run(BACKWARD);
     flagL = true;
-  } else if (vel_l > 0 + epsilon) {
+  } else if (vel_l > 0) {
     LeftMotor.run(FORWARD);
     flagL = true;
-  } else{
+  } else {
     if (vel_l_prev && flagL) {
       LeftMotor.run(BACKWARD);
       delay(10);

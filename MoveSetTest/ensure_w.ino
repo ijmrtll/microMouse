@@ -1,7 +1,7 @@
 //Values specific for the robot
-double w_max_v0 = 11.5288; //6.202;  //rad/s of the robot//
-double v_max_w0 = 0.3831; //0.2700; //m/s of the robot
-double max_vel = 11.1043;   //rad/s of the wheel
+double w_max_v0 = 6.202;  //rad/s of the robot//
+double v_max_w0 = 0.2700; //m/s of the robot
+double max_vel = 3.929;   //rad/s of the wheel
 
 //variables
 double vel_rl_max = 0;

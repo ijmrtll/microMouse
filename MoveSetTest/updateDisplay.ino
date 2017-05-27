@@ -12,7 +12,7 @@ void updateDisplay() {
 
   if (currentTime - lastPage > 1000 * lcdInterval) {
     lastPage = currentTime;
-    //page++;
+    page++;
   }
 
   // check time since last update

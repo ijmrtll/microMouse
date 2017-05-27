@@ -12,8 +12,8 @@ AF_DCMotor LeftMotor(1);
 volatile  long encoderLeftPos = 0;
 volatile  long encoderRightPos = 0;
 
-int maxDigVel = 100;
-float pdiff = 1.05;
+int maxDigVel = 60;
+float pdiff = 1.1;
 
 void setup() {
   pinMode(encoderLeftPinA, INPUT_PULLUP);
@@ -26,11 +26,11 @@ void setup() {
   RightMotor.setSpeed(int(pdiff*maxDigVel));
   LeftMotor.setSpeed(maxDigVel);
   RightMotor.run(FORWARD);
-  LeftMotor.run(FORWARD);
+  LeftMotor.run(RELEASE);
   Serial.begin(115200);
 }
 
-double rev = 1;
+double rev = 10;
 int ticks_rev = 720;
 
 void loop() {
@@ -41,7 +41,7 @@ void loop() {
   
   if (encoderRightPos >= rev*ticks_rev || encoderLeftPos >= rev*ticks_rev) {
     RightMotor.run(BACKWARD);
-    LeftMotor.run(BACKWARD);
+    LeftMotor.run(RELEASE);
     delay(10);
     RightMotor.run(RELEASE);
     LeftMotor.run(RELEASE);

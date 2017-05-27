@@ -22,8 +22,8 @@ long prev_right_ticks = 0;
 long prev_left_ticks = 0;
 
 const double ticks_per_rev = 720;
-const double R = 0.0345; //cm
-const double L = 0.0650; //cm
+const double R = 0.0345; // radious of the wheel
+const double L = 0.0650; // cm
 
 double Dr = 0;
 double Dl = 0;
@@ -54,22 +54,18 @@ double d_stop = 0.01;
 
 
 //PID
-const double Kp = 10;  // 1.5
-const double Ki = 0; // 0.05
-const double Kd = 0; // 0.15
-double v = 0.4 * 0.3831; // set to zero to not move. Range(0, 0.27)
+const double Kp = 1.5;  // 1.5
+const double Ki = 0.05; // 0.05
+const double Kd = 0.15; // 0.15
+double v = 0.1 * 0.27; // set to zero to not move. Range(0, 0.27)
 double w = 0; // CV
 
-//Grid position
-int row[] = {1, 1 , 1, 2};
-int col[] = {0, 1 , 0, 0};
-
 //SetPoint (GOAL)
-//double target_x[];;
-//double target_y[];
-int nPoints = 4;
+double target_x[] = {0.0, 0.1, 0.3, 0.3, 0.4, 0.0};
+double target_y[] = {0.1, 0.1, 0.1, 0.0, 0.1, 0.0};
+int nPoints = 6;
 
-double goalPoint[] = {0.2*row[nPoints-1], -0.2*col[nPoints-1]};
+double goalPoint[] = {target_x[nPoints-1], target_y[nPoints-1]};
 
 double theta_g = 0; //computed in loop
 
@@ -86,9 +82,9 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(encoderRightPinA), doEncoderRight, CHANGE);
 
   // PID init
-  myPID.SetSampleTime(10); // New Line
+  myPID.SetSampleTime(100); // New Line
   myPID.SetMode(AUTOMATIC);
-  myPID.SetOutputLimits(-13, 13);
+  myPID.SetOutputLimits(-7, 7);
 
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -104,8 +100,8 @@ void setup() {
 int i = 0;
 void loop() {
   update_odometry();
-  x_g = 0.2*row[i];
-  y_g = -0.2*col[i];
+  x_g = target_x[i];
+  y_g = target_y[i];
   u_x = x_g - x_new;
   u_y = y_g - y_new;
   theta_g = atan2(u_y, u_x);

@@ -22,20 +22,26 @@ LiquidCrystal lcd(53, 52, 50, 51, 48, 49);
 */
 // Front IR Sensor
 #define frontSensorPin A0
-#define maxDistanceFrontSensor 2000 //cm
-MovingAverage<int, 3> frontSensorAverage(maxDistanceFrontSensor);
+#define maxValFrontSensor 450 // digital value
+#define minValFrontSensor 70 // digital value
+MovingAverage<int, 3> frontSensorAverage(maxValFrontSensor);
+int frontSensorVal;
 float frontSensorDistance;
 
 //Right IR Sensor
 #define rightSensorPin A1
-#define maxDistanceRightSensor 20000 //cm
-MovingAverage<int, 3> rightSensorAverage(maxDistanceFrontSensor);
+#define maxValRightSensor 450 // digital value
+#define minValRightSensor 70 // digital value
+MovingAverage<int, 3> rightSensorAverage(maxValRightSensor);
+int rightSensorVal;
 float rightSensorDistance;
 
 //Left IR Sensor
 #define leftSensorPin A2
-#define maxDistanceLeftSensor 2000 //cm
-MovingAverage<int, 3> leftSensorAverage(maxDistanceFrontSensor);
+#define maxValLeftSensor 450 // digital value
+#define minValLeftSensor 70 // digital value
+MovingAverage<int, 3> leftSensorAverage(maxValLeftSensor);
+int leftSensorVal;
 float leftSensorDistance;
 
 /*End sensors config and moving average config
